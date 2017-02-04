@@ -13,6 +13,7 @@ Use supplied files in Alexa to create your skill
     SL_BUS_SITE_ID:         ID for closest bus stop
     SL_METRO_SITE_ID:       ID for closest metro station
     SL_API_KEY:             API key from Trafiklab
+    TTS_HOST:               URL which returns a MP3 f.ex. (https://tts/sv/)
 
 ###Small Guide
 - Create Project at Trafiklab

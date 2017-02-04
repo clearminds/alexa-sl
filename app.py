@@ -6,7 +6,7 @@ from flask_ask import Ask, request, session, question, statement
 from werkzeug.contrib.fixers import ProxyFix
 from unidecode import unidecode
 import logging
-
+from urllib import quote_plus
 from sl import SL
 
 config = Config()
@@ -15,6 +15,7 @@ app = Flask(__name__)
 ask = Ask(app, "/")
 logging.getLogger('flask_ask').setLevel(logging.DEBUG)
 sl = SL(os.environ['SL_API_KEY'])
+tts_host = os.environ.get('TTS_HOST')
 
 def get_site_id(transporatation):
     return os.environ.get('SL_%s_SITE_ID' % transporatation.upper())
@@ -62,14 +63,24 @@ def _generate_answer(transportation):
     card_reply =  []
     for r in result:
         r['transportation'] = transportation
+        if tts_host:
+            destination = quote_plus(r['destination'].encode('utf-8'))
+            r['speech_destination'] = '<audio src="%s%s"/>' % (tts_host, destination) 
+        else:
+            r['speech_destination'] = r['destination']
+        if transportation == 'bus':
+            r['speech_destination'] = '%(line_number)s to ' % r + r['speech_destination']
+        else:
+            r['speech_destination'] = r['speech_destination']
+
         cnt = len(speech_reply)
         if cnt < 4:
             if cnt == 0:
-                speech_reply.append(u'<s>The next %(transportation)s %(line_number)s to %(destination)s will depart %(time_left)s</s>' % r)
+                speech_reply.append(u'<s>The next %(transportation)s %(speech_destination)s will depart %(time_left)s</s>' % r)
             if cnt == 1:
-                speech_reply.append(u'<s>Followed by %(line_number)s to %(destination)s %(time_left)s</s>' % r)
+                speech_reply.append(u'<s>Followed by %(speech_destination)s %(time_left)s</s>' % r)
             if cnt > 1:
-                speech_reply.append(u'<s>%(line_number)s to %(destination)s %(time_left)s</s>' % r)
+                speech_reply.append(u'<s>%(speech_destination)s %(time_left)s</s>' % r)
 
             card_reply.append(u'%(transport_type)s %(line_number)s to %(destination)s will depart %(time_left)s.' % r)
 
