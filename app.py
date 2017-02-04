@@ -76,7 +76,7 @@ def _generate_answer(transportation):
     speech_text = ''.join(speech_reply)
     speech_text = '<speak>' + speech_text + '</speak>'
     card_text = '\n'.join(card_reply)
-    return statement(unidecode(speech_text)).simple_card('SL', card_text)
+    return statement(unidecode(speech_text)).simple_card('Next %s' % transportation, card_text)
 
 
 @ask.intent('AMAZON.HelpIntent')
