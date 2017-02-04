@@ -1,0 +1,25 @@
+{
+  "intents": [
+{
+      "intent": "SLRealTimeIntent",
+      "slots": [
+        {
+            "name": "transportation",
+            "type": "TRANSPORTATION"
+        }
+      ]
+    },
+{
+      "intent": "SLRealTimeCityIntent",
+      "slots": [
+        {
+            "name": "transportation",
+            "type": "TRANSPORTATION"
+        }
+      ]
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    }
+  ]
+}

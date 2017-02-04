@@ -1,0 +1,44 @@
+SLRealTimeIntent when does the next {transportation} depart
+SLRealTimeIntent when does the next {transportation} leave
+SLRealTimeIntent when does the next {transportation} go
+SLRealTimeIntent when does the next {transportation} goes
+SLRealTimeIntent when the next {transportation} go
+SLRealTimeIntent when the next {transportation} goes
+SLRealTimeIntent when the next {transportation} leave
+SLRealTimeIntent when the next {transportation} depart
+SLRealTimeIntent when does the next {transportation} go
+SLRealTimeIntent when does the next {transportation} goes
+SLRealTimeIntent when does the next {transportation} leave
+SLRealTimeIntent when does the next {transportation} depart
+SLRealTimeIntent when the next {transportation} goes
+SLRealTimeIntent when the next {transportation} go
+SLRealTimeIntent when the next {transportation} leave
+SLRealTimeIntent when the next {transportation} depart
+SLRealTimeIntent about next {transportation} departure
+
+
+SLRealTimeCityIntent when the next {transportation} to the city leave
+SLRealTimeCityIntent when the next {transportation} to the city depart
+SLRealTimeCityIntent when the next {transportation} to the city go
+SLRealTimeCityIntent when the next {transportation} to the city goes
+SLRealTimeCityIntent when the next {transportation} will leave for the city
+SLRealTimeCityIntent when the next {transportation} leaves for the city
+
+
+SLRealTimeIntent {transportation}
+
+
+AMAZON.HelpIntent help
+AMAZON.HelpIntent help me
+AMAZON.HelpIntent what can I ask you
+AMAZON.HelpIntent get help
+AMAZON.HelpIntent what commands can I ask
+AMAZON.HelpIntent what commands can I say
+AMAZON.HelpIntent what can I do
+AMAZON.HelpIntent what can I use this for
+AMAZON.HelpIntent what questions can I ask
+AMAZON.HelpIntent what can you do
+AMAZON.HelpIntent what do you do
+AMAZON.HelpIntent how do I use you
+AMAZON.HelpIntent how can I use you
+AMAZON.HelpIntent what can you tell me
