@@ -6,7 +6,7 @@ from flask_ask import Ask, request, session, question, statement
 from werkzeug.contrib.fixers import ProxyFix
 from unidecode import unidecode
 import logging
-from urllib import quote_plus
+from urllib.parse import quote_plus
 from sl import SL
 
 config = Config()

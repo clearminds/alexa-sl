@@ -99,11 +99,11 @@ class SL():
 
 if __name__ == '__main__':
     sl = SL(os.environ['SL_API_KEY'])
-    print 1945
+    print(1945)
     sl.bus = True
-    print sl.simple_list(1945)
+    print(sl.simple_list(1945))
     sl.reset_filter()
     sl.metro = True
-    print 9161
-    print sl.simple_list(9161)
+    print(9161)
+    print(sl.simple_list(9161))
 
