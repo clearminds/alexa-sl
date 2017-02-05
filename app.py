@@ -27,39 +27,11 @@ def get_site_id(transporatation):
 
 @ask.launch
 def launch():
-    speech_text = 'Bus or Metro?'
-    return question(speech_text).reprompt(speech_text).simple_card('SL', speech_text)
-
-
-@ask.intent('SLRealTimeCityIntent')
-def real_time_city(transportation):
     sl.reset_filter()
-    if transportation in ('metro', 'subway'):
-        sl.metro = True
-        sl.journey_direction = 1
-        sl.site_id = get_site_id('metro')
-    else:
-        speech_text = "I only support metro with this quetion"
-        return statement(speech_text).simple_card('SL', speech_text)
-
-    return _generate_answer(transportation)
-
-
-@ask.intent('SLRealTimeIntent')
-def real_time(transportation):
-    sl.reset_filter()
-    if transportation in ('metro', 'subway'):
-        sl.metro = True
-        sl.site_id = get_site_id('metro')
-    elif transportation == 'bus':
-        sl.bus = True
-        sl.site_id = get_site_id('bus') 
-    else:
-        speech_text = "Sorry I didn't catch what you asked for there, which transporatation did you want to go with. Bus or Metro?"
-        return question(speech_text).reprompt(speech_text).simple_card('SL', speech_text)
-
-    return _generate_answer(transportation)
-
+    sl.metro = True
+    sl.journey_direction = 1
+    sl.site_id = get_site_id('metro')
+    return _generate_answer('metro')
 
 def _generate_answer(transportation):
     result = sl.simple_list()
@@ -100,7 +72,7 @@ def _generate_answer(transportation):
 
 @ask.intent('AMAZON.HelpIntent')
 def help():
-    speech_text = 'You can ask me when the bus or subway goes. For example, When does the next bus go?'
+    speech_text = 'I do not have any more commands, just invoke me with metro'
     return question(speech_text).reprompt(speech_text).simple_card('SL', speech_text)
 
 
