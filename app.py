@@ -6,8 +6,12 @@ from flask_ask import Ask, request, session, question, statement
 from werkzeug.contrib.fixers import ProxyFix
 from unidecode import unidecode
 import logging
-from urllib.parse import quote_plus
 from sl import SL
+
+try:
+    from urllib.parse import quote_plus
+except:
+    from urllib import quote_plus
 
 config = Config()
 
@@ -20,10 +24,12 @@ tts_host = os.environ.get('TTS_HOST')
 def get_site_id(transporatation):
     return os.environ.get('SL_%s_SITE_ID' % transporatation.upper())
 
+
 @ask.launch
 def launch():
-    speech_text = 'Welcome to S L Real Time Alexa Skill'
+    speech_text = 'Bus or Metro?'
     return question(speech_text).reprompt(speech_text).simple_card('SL', speech_text)
+
 
 @ask.intent('SLRealTimeCityIntent')
 def real_time_city(transportation):
@@ -37,6 +43,7 @@ def real_time_city(transportation):
         return statement(speech_text).simple_card('SL', speech_text)
 
     return _generate_answer(transportation)
+
 
 @ask.intent('SLRealTimeIntent')
 def real_time(transportation):
@@ -52,6 +59,7 @@ def real_time(transportation):
         return question(speech_text).reprompt(speech_text).simple_card('SL', speech_text)
 
     return _generate_answer(transportation)
+
 
 def _generate_answer(transportation):
     result = sl.simple_list()

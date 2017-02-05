@@ -17,6 +17,7 @@ class Config(object):
             self._debug_mode = config['debug_mode']
             self._port = config['port']
 
+
     @staticmethod
     def init_environment():
         """Allow variables assigned in .env available using
