@@ -62,13 +62,27 @@ def real_time(transportation):
 
 
 def _generate_answer(transportation):
-    result = sl.simple_list()
-    if not result:
-        speech_text = u'I can not find any departures with the %s' % transportation
-        return statement(unidecode(speech_text)).simple_card('SL', speech_text)
-
+    result, deviations = sl.simple_list()
     speech_reply =  []
     card_reply =  []
+    if not result:
+        if deviations and tts_host:
+            for d in deviations:
+                deviation = quote_plus(d['Deviation']['Text'].encode('utf-8'))
+                speech_reply.append('<audio src="%s%s"/> <audio src="%s%s"/>' % (tts_host,
+                                                                                 d['StopInfo']['TransportMode'].capitalize(),
+                                                                                 tts_host, deviation))
+                card_reply.append('%s - %s' % (d['StopInfo']['TransportMode'].capitalize(), d['Deviation']['Text']))
+        else:
+            speech_reply.append(u'I can not find any departures with the %s' % transportation)
+            card_reply = speech_reply
+
+        speech_text = ''.join(speech_reply)
+        speech_text = '<speak>' + speech_text + '</speak>'
+        card_text = '\n'.join(card_reply)
+
+        return statement(speech_text).simple_card('SL', card_text)
+
     for r in result:
         r['transportation'] = transportation
         if tts_host:

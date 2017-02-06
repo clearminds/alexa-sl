@@ -73,6 +73,7 @@ class SL():
             raise ValueError('No site_id set')
         
         json = self._get_realtime()
+        deviations = json['ResponseData'].get('StopPointDeviations',[])
         response = [] 
         for t in self.transporatation:
             for m in json['ResponseData'][t]:
@@ -94,7 +95,7 @@ class SL():
                                    'transport_type': m['TransportMode'].capitalize(),
                                    'journey_direction': m['JourneyDirection'],
                                 } )
-        return response 
+        return response, deviations
 
 
 if __name__ == '__main__':
