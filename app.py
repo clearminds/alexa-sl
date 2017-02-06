@@ -33,21 +33,44 @@ def launch():
     sl.site_id = get_site_id('metro')
     return _generate_answer('metro')
 
+  
+def _generate_deviation(deviations):
+    speech_reply =  []
+    card_reply =  []
+    if deviations and tts_host:
+        for d in deviations:
+            deviation = quote_plus(d['Deviation']['Text'].encode('utf-8'))
+            speech_reply.append('<s>%s <audio src="%s%s"/></s>' % (d['StopInfo']['TransportMode'].capitalize(),
+                                                            tts_host, deviation))
+            card_reply.append('%s - %s' % (d['StopInfo']['TransportMode'].capitalize(), d['Deviation']['Text']))
+    elif deviations and not tts_host:
+        speech_reply.append('<s>There are some deviations right now.</s>')
+        for d in deviations:
+            deviation = quote_plus(d['Deviation']['Text'].encode('utf-8'))
+            card_reply.append('%s - %s' % (d['StopInfo']['TransportMode'].capitalize(), d['Deviation']['Text']))
+    else:
+        speech_reply.append(u'<s>There are no known deviations right now</s>')
+        card_reply = speech_reply
+
+    speech_text = ''.join(speech_reply)
+    card_text = '\n'.join(card_reply)
+
+    return speech_text, card_text
+
+  
 def _generate_answer(transportation):
     result, deviations = sl.simple_list()
     speech_reply =  []
     card_reply =  []
+
+    if deviations:
+        st, ct = _generate_deviation(deviations)
+        speech_reply.append(st)
+        card_reply.append(ct)
+
     if not result:
-        if deviations and tts_host:
-            for d in deviations:
-                deviation = quote_plus(d['Deviation']['Text'].encode('utf-8'))
-                speech_reply.append('<audio src="%s%s"/> <audio src="%s%s"/>' % (tts_host,
-                                                                                 d['StopInfo']['TransportMode'].capitalize(),
-                                                                                 tts_host, deviation))
-                card_reply.append('%s - %s' % (d['StopInfo']['TransportMode'].capitalize(), d['Deviation']['Text']))
-        else:
-            speech_reply.append(u'I can not find any departures with the %s' % transportation)
-            card_reply = speech_reply
+        speech_reply.append(u'<s>I can not find any departures with the %s</s>' % transportation)
+        card_reply = speech_reply
 
         speech_text = ''.join(speech_reply)
         speech_text = '<speak>' + speech_text + '</speak>'
@@ -68,7 +91,9 @@ def _generate_answer(transportation):
             r['speech_destination'] = r['speech_destination']
 
         cnt = len(speech_reply)
-        if cnt < 4:
+        if deviations:
+            cnt -= 1
+        if cnt < 3:
             if cnt == 0:
                 speech_reply.append(u'<s>The next %(transportation)s %(speech_destination)s will depart %(time_left)s</s>' % r)
             if cnt == 1:
