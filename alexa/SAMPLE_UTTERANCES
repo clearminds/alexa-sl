@@ -31,6 +31,16 @@ SLRealTimeCityIntent when the next {transportation} will leave for the city
 SLRealTimeCityIntent when the next {transportation} leaves for the city
 SLRealTimeCityIntent when the next {transportation} leave for the city
 
+SLDeviationIntent what deviations the {transportation} got now
+SLDeviationIntent if there is any deviations with the {transportation}
+SLDeviationIntent if there is any deviations with the {transportation} now
+SLDeviationIntent if there is any deviations with the {transportation} right now
+SLDeviationIntent if there is any deviations with {transportation}
+SLDeviationIntent is there any deviations with the {transportation}
+SLDeviationIntent is there any deviations with the {transportation} now
+SLDeviationIntent is there any deviations with the {transportation} right now
+SLDeviationIntent is there any deviations with {transportation}
+
 
 SLRealTimeIntent {transportation}
 

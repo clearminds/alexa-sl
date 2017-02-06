@@ -19,6 +19,16 @@
       ]
     },
     {
+      "intent": "SLDeviationIntent",
+      "slots": [
+        {
+            "name": "transportation",
+            "type": "TRANSPORTATION"
+        }
+      ]
+    },
+
+    {
       "intent": "AMAZON.HelpIntent"
     }
   ]
